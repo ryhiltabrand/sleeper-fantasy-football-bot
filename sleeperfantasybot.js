@@ -6,8 +6,13 @@ const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 const fs = require('node:fs');
 const path = require('node:path');
+const mongoose = require('mongoose')
 // Notify progress
-client.on('ready', function(e){
+client.on('ready', async (e) => {
+    
+    /*await mongoose.connect(process.env.MONGODB_URI, {
+        keepAlive : true
+    })*/
     console.log(`Logged in as ${client.user.tag}!`)
 })
 
@@ -21,6 +26,8 @@ client.on('interactionCreate', async interaction => {
 	} else if (commandName === 'server') {
 		await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
 	} else if (commandName === 'user') {
+		await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
+	} else if (commandName === 'football') {
 		await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
 	}
 });
